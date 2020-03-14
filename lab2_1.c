@@ -1,6 +1,7 @@
 /*Lab2 prog1- determinate if a given point is inside a circle  */
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
+#include<math.h>
 
 /*point structure- stores x and y values of a point*/
 typedef struct {
@@ -37,10 +38,12 @@ void main() {
 /*func name: is_in
 input: point struct, circle struct
 output: int
-algorithm: check if the given point values are smaller than the radius (thus in the circle). */
+algorithm: check if the distance of point from center is smaller than the radius (thus in the circle). */
 int is_in(point given_point, circle given_circle) {
 	int radius = given_circle.radius;
-	if ((given_point.x < radius && given_point.x > -(radius)) && (given_point.y < radius && given_point.y > -(radius)))
+	double distance, delta_x = given_point.x- given_circle.center.x, delta_y = given_point.y- given_circle.center.y;
+	distance = sqrt(pow(delta_x, 2) + pow(delta_y, 2));
+	if (radius>=distance)
 		return 1;
 	return 0;
 }
