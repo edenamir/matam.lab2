@@ -18,7 +18,7 @@ void Print_One(student*);
 
 
 
-int main()
+int a_main()
 {
 	int size, i;
 	student* arr;
@@ -38,6 +38,7 @@ int main()
 input: int size
 output: pointer to arr
 algorithm: create an array of students and insert their marks and name to each student accordingly.*/
+
 student* Create_Class(int size)
 {
 	int i,j,name_len;
@@ -46,8 +47,11 @@ student* Create_Class(int size)
 
 	arr = (student*)malloc(size * sizeof(student)); // Allocate memory to the name of each student by its size. 
 
-	if (arr == NULL)
+	if (arr == NULL) {
+		free(arr);
 		exit(1);
+	}
+
 
 	for (i = 0; i < size; i++) {
 		printf("\nEnter your name:");
@@ -56,8 +60,12 @@ student* Create_Class(int size)
 		name_len = strlen(student_name);
 
 		arr[i].name = (char*)malloc((name_len + 1) * sizeof(char));// Allocate memory to the name of each student by its size. 
-		if (arr[i].name == NULL);
+		if (arr[i].name == NULL) {
+			free(arr[i].name);
 			exit(1);
+		}
+		
+			
 
 		strcpy(arr[i].name, student_name);// Copy the name of the student into its struct.
 
@@ -67,13 +75,18 @@ student* Create_Class(int size)
 		Avg_Mark(&arr[i]);
 	
 	}
+	free(arr[i].name);
+	free(arr);
+
 	return arr;
 }
+
 
 /*func name: Avg_Mark
 input: student* s
 output: none
 algorithm: calculate the average of a given student.*/
+
 void Avg_Mark(student* s)
 {
 	float sum=0;
